@@ -1,3 +1,4 @@
+using BlogAPIDotnet.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,23 +8,34 @@ namespace BlogAPIDotnet.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
+        private readonly BlogContext _context;
+        public PostController(BlogContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("Get all posts");
+            var stocks = _context.Posts.ToList();
+            return Ok(stocks);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok($"Get post with id {id}");
+            var post = _context.Posts.FirstOrDefault(p => p.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
         }
 
         [HttpPost]
         public IActionResult Post()
         {
-            return Ok("Create a new post");
+            return Ok("Create new post");
         }
 
         [HttpPut("{id}")]

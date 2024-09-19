@@ -1,14 +1,7 @@
-using BlogAPIDotnet.Data;
-using Microsoft.EntityFrameworkCore;
+using BlogAPIDotnet.Services.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<BlogContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-builder.Services.AddControllers();
+ServiceConfiguration.Configure(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
