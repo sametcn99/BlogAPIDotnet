@@ -1,4 +1,6 @@
 using BlogAPIDotnet.Data;
+using BlogAPIDotnet.Dtos.Post;
+using BlogAPIDotnet.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +35,18 @@ namespace BlogAPIDotnet.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Create([FromBody] CreatePostRequestDto postCreateDto)
         {
-            return Ok("Create new post");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var post = postCreateDto.ToPostFromCreateDto();
+            _context.Posts.Add(post);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(Get), new { id = post.Id }, post);
         }
 
         [HttpPut("{id}")]

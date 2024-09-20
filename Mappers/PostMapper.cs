@@ -16,5 +16,15 @@ namespace BlogAPIDotnet.Mappers
                 Comments = postModel.Comments
             };
         }
+
+        public static Post ToPostFromCreateDto(this CreatePostRequestDto postCreateDto)
+        {
+            return new Post
+            {
+                Title = postCreateDto.Title,
+                Content = postCreateDto.Content
+            };
+
+        }
     }
 }
