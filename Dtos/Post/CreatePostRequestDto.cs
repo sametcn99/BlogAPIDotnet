@@ -12,5 +12,6 @@ public class CreatePostRequestDto
     [MinLength(10)]
     public string Title { get; set; } = null!;
     [Required]
+    [MinLength(200)]
     public string Content { get; set; } = null!;
 }

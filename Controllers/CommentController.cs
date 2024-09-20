@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAPIDotnet.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] // dynamically bind the route to the controller name
     [ApiController]
     public class CommentController : ControllerBase
     {

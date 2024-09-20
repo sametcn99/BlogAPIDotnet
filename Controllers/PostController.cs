@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAPIDotnet.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] // dynamically bind the route to the controller name
     [ApiController]
     public class PostController : ControllerBase
     {
@@ -58,15 +58,39 @@ namespace BlogAPIDotnet.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id)
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdatePostRequestDto postUpdateDto)
         {
-            return Ok($"Update post with id {id}");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var post = _context.Posts.FirstOrDefault(p => p.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            post.Title = postUpdateDto.Title;
+            post.Content = postUpdateDto.Content;
+            _context.SaveChanges();
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
-            return Ok($"Delete post with id {id}");
+            var post = _context.Posts.FirstOrDefault(p => p.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _context.Posts.Remove(post);
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }

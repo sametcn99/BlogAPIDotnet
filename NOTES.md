@@ -1,30 +1,32 @@
 # Notes for .NET WebAPI Project
 
-## Mappers
+## Resources I Utilized/Utilizing
 
-A **Mapper** is a design pattern used to transform data from one format to another. It’s commonly applied when transferring data between different layers of an application, such as from a database to the business logic layer or from the business logic layer to the presentation layer.
+### Microsoft Docs
 
-### Why Use a Mapper?
+- [Tutorial: Create a web API with ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio)
+- [Tutorial: Create a minimal API with ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio-code)
+- [Entity Framework Core Docs](https://learn.microsoft.com/en-us/ef/core/)
+- [Choose between controller-based APIs and minimal APIs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/apis?view=aspnetcore-8.0)
+- [.NET CLI overview](https://learn.microsoft.com/en-us/dotnet/core/tools/)
 
-- **Separation of Concerns**: Mappers help separate data transformation logic from business logic, making the codebase cleaner and easier to maintain.
-- **Reusability**: Mappers can be reused across different parts of the application, reducing code duplication.
-- **Testability**: By isolating data transformation, mappers make it easier to write unit tests.
-- **Consistency**: Ensures consistent data transformation across the application.
+### GitHub Repositories
 
-## DTOs (Data Transfer Objects)
+- [adiazwise/CustomerAPI](https://github.com/adiazwise/CustomerAPI)
+- [teddysmithdev/FinShark](https://github.com/teddysmithdev/FinShark)
 
-A **DTO** is a design pattern used to transfer data between different parts of an application, especially between the client and server or between various layers. DTOs are simple objects that contain no business logic but only data. They are often used to encapsulate data and transfer it over the network or between layers of the application.
+### YouTube Tutorials
 
-## Application Context
+- [Introduction to ASP.NET Core MVC (.NET 8) / DotNetMastery](https://www.youtube.com/watch?v=AopeJjkcRvU)
+- [ASP.NET Web API .NET 8 Tutorial 2024 / Teddy Smith - YouTube Playlist](https://www.youtube.com/playlist?list=PL82C6-O4XrHfrGOCPmKmwTO7M0avXyQKc)
 
-In software development, the term **application context** can refer to different things based on the context. Generally, it defines the environment or scope in which an application runs and manages its components and resources.
+### Blog Posts
 
-### Why Use an Application Context?
+- [How to Build a WEB API ASP.NET Core 6 (Part 1) / Dev.to Post](https://dev.to/learnwithandres/how-to-build-a-web-api-aspnet-core-6-2doc)
 
-- **Resource Management**: Centralizes the management of resources like database connections, configuration settings, and external services.
-- **Dependency Injection**: Helps with injecting dependencies into application components through a managed way.
-- **Lifecycle Management**: Manages the lifecycle of components, ensuring proper initialization and cleanup.
-- **Configuration**: Provides a centralized configuration location, making it easier to manage and modify settings.
+### Other Links
+
+- Large Language Models (LLMs) 😇
 
 ## How to Initialize SQL Server in .NET WebAPI
 
@@ -90,15 +92,80 @@ In software development, the term **application context** can refer to different
    dotnet ef database update
    ```
 
-## Learning Resources I Utilized/Utilizing
+## Service Configuration
 
-- [Tutorial: Create a web API with ASP.NET Core / Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio)
-- [Tutorial: Create a minimal API with ASP.NET Core / Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio-code)
-- [How to Build a WEB API ASP.NET Core 6 (Part 1) / Dev.to Post](https://dev.to/learnwithandres/how-to-build-a-web-api-aspnet-core-6-2doc)
-- [adiazwise/CustomerAPI / Github Repository](https://github.com/adiazwise/CustomerAPI)
-- [Entity Framework Core Docks](https://learn.microsoft.com/en-us/ef/core/)
-- [Introduction to ASP.NET Core MVC (.NET 8) / DotNetMastery](https://www.youtube.com/watch?v=AopeJjkcRvU)
-- [Choose between controller-based APIs and minimal APIs / Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/apis?view=aspnetcore-8.0)
-- [teddysmithdev/FinShark / Github Repository](https://github.com/teddysmithdev/FinShark)
-- [ASP.NET Web API .NET 8 Tutorial 2024 / Teddy Smith - YouTube Playlist](https://www.youtube.com/playlist?list=PL82C6-O4XrHfrGOCPmKmwTO7M0avXyQKc)
-- Large Language Models (LLMs) 😇
+Create `ServiceConfiguration.cs` under the `Services/Configuration` folder and use it between the `app` and `builder` variables in `Program.cs`. Your `ServiceConfiguration` class and `Program.cs` should look like this:
+
+- ServiceConfiguration.cs
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+using Application.Data;
+
+namespace Application.Services.Configuration
+{
+    public class ServiceConfiguration
+    {
+        public static void Configure(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+            services.AddDbContext<AppContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+            services.AddControllers();
+        }
+    }
+}
+
+```
+
+- Program.cs
+
+```csharp
+using Application.Services.Configuration;
+
+var builder = WebApplication.CreateBuilder(args); // creates a new WebApplication instance.
+ServiceConfiguration.Configure(builder.Services, builder.Configuration); // configures services for the application.
+
+var app = builder.Build(); // creates the application.
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapControllers(); // maps the controllers.
+app.UseHttpsRedirection(); // redirects HTTP requests to HTTPS.
+
+app.Run(); // runs the application.
+```
+
+## Mappers
+
+A **Mapper** is a design pattern used to transform data from one format to another. It’s commonly applied when transferring data between different layers of an application, such as from a database to the business logic layer or from the business logic layer to the presentation layer.
+
+### Why Use a Mapper?
+
+- **Separation of Concerns**: Mappers help separate data transformation logic from business logic, making the codebase cleaner and easier to maintain.
+- **Reusability**: Mappers can be reused across different parts of the application, reducing code duplication.
+- **Testability**: By isolating data transformation, mappers make it easier to write unit tests.
+- **Consistency**: Ensures consistent data transformation across the application.
+
+## DTOs (Data Transfer Objects)
+
+A **DTO** is a design pattern used to transfer data between different parts of an application, especially between the client and server or between various layers. DTOs are simple objects that contain no business logic but only data. They are often used to encapsulate data and transfer it over the network or between layers of the application.
+
+## Application Context
+
+In software development, the term **application context** can refer to different things based on the context. Generally, it defines the environment or scope in which an application runs and manages its components and resources.
+
+### Why Use an Application Context?
+
+- **Resource Management**: Centralizes the management of resources like database connections, configuration settings, and external services.
+- **Dependency Injection**: Helps with injecting dependencies into application components through a managed way.
+- **Lifecycle Management**: Manages the lifecycle of components, ensuring proper initialization and cleanup.
+- **Configuration**: Provides a centralized configuration location, making it easier to manage and modify settings.
