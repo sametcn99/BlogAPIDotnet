@@ -144,6 +144,15 @@ app.UseHttpsRedirection(); // redirects HTTP requests to HTTPS.
 app.Run(); // runs the application.
 ```
 
+## Creating Controllers as Async Tasks in ASP.NET Web API
+
+### Understanding Async/Await
+
+Before diving into the benefits of creating controllers as async tasks, let's briefly recap what async/await is.
+
+- **Async**: This keyword marks a method as asynchronous, indicating that it can run independently without blocking the current thread.
+- **Await**: This keyword is used within an async method to pause the method's execution until a particular task completes.
+
 ## Mappers
 
 A **Mapper** is a design pattern used to transform data from one format to another. It’s commonly applied when transferring data between different layers of an application, such as from a database to the business logic layer or from the business logic layer to the presentation layer.
