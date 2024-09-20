@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace BlogAPIDotnet.Dtos.Comment
 {
     /// <summary>

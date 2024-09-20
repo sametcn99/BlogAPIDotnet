@@ -1,8 +1,5 @@
-using System;
-using BlogAPIDotnet.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using BlogAPIDotnet.Dtos.Post;
+using BlogAPIDotnet.Models;
 
 namespace BlogAPIDotnet.Interfaces;
 

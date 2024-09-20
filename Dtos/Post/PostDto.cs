@@ -1,5 +1,3 @@
-using BlogAPIDotnet.Models;
-
 namespace BlogAPIDotnet.Dtos.Post
 {
     /// <summary>

@@ -1,6 +1,7 @@
-using System;
 using Microsoft.EntityFrameworkCore;
+
 using BlogAPIDotnet.Models;
+
 namespace BlogAPIDotnet.Data;
 
 public class BlogContext : DbContext

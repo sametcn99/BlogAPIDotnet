@@ -1,8 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+
 using BlogAPIDotnet.Data;
 using BlogAPIDotnet.Dtos.Post;
 using BlogAPIDotnet.Interfaces;
 using BlogAPIDotnet.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace BlogAPIDotnet.Repository;
 

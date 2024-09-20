@@ -1,10 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
+
 using BlogAPIDotnet.Data;
 using BlogAPIDotnet.Dtos.Post;
 using BlogAPIDotnet.Interfaces;
 using BlogAPIDotnet.Mappers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BlogAPIDotnet.Controllers
 {
