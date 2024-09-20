@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAPIDotnet.Dtos.Comment
 {
+    /// <summary>
+    /// Represents a comment on a post. Used for returning comment data.
+    /// </summary>
     public class CommentDto
     {
         public int Id { get; set; }

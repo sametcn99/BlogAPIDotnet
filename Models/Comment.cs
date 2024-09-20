@@ -2,6 +2,9 @@ using System;
 
 namespace BlogAPIDotnet.Models;
 
+/// <summary>
+/// Represents a comment on a post.
+/// </summary>
 public class Comment
 {
     public int Id { get; set; }

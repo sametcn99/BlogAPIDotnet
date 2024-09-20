@@ -10,7 +10,15 @@ namespace BlogAPIDotnet.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
+        /// <summary>
+        /// The BlogContext instance.
+        /// </summary>
         private readonly BlogContext _context;
+
+        /// <summary>
+        /// Constructor for the PostController class.
+        /// </summary>
+        /// <param name="context"></param>
         public PostController(BlogContext context)
         {
             _context = context;

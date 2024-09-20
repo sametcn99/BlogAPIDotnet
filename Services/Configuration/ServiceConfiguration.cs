@@ -3,6 +3,9 @@ using BlogAPIDotnet.Data;
 
 namespace BlogAPIDotnet.Services.Configuration
 {
+    /// <summary>
+    /// Configures the services for the application.
+    /// </summary>
     public class ServiceConfiguration
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)

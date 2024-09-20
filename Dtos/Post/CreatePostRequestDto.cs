@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlogAPIDotnet.Dtos.Post;
 
+/// <summary>
+/// Represents a request to create a post.
+/// </summary>
 public class CreatePostRequestDto
 {
     [Required]
