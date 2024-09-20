@@ -89,3 +89,16 @@ In software development, the term **application context** can refer to different
    dotnet ef migration init
    dotnet ef database update
    ```
+
+## Learning Resources I Utilized/Utilizing
+
+- [Tutorial: Create a web API with ASP.NET Core / Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio)
+- [Tutorial: Create a minimal API with ASP.NET Core / Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio-code)
+- [How to Build a WEB API ASP.NET Core 6 (Part 1) / Dev.to Post](https://dev.to/learnwithandres/how-to-build-a-web-api-aspnet-core-6-2doc)
+- [adiazwise/CustomerAPI / Github Repository](https://github.com/adiazwise/CustomerAPI)
+- [Entity Framework Core Docks](https://learn.microsoft.com/en-us/ef/core/)
+- [Introduction to ASP.NET Core MVC (.NET 8) / DotNetMastery](https://www.youtube.com/watch?v=AopeJjkcRvU)
+- [Choose between controller-based APIs and minimal APIs / Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/apis?view=aspnetcore-8.0)
+- [teddysmithdev/FinShark / Github Repository](https://github.com/teddysmithdev/FinShark)
+- [ASP.NET Web API .NET 8 Tutorial 2024 / Teddy Smith - YouTube Playlist](https://www.youtube.com/playlist?list=PL82C6-O4XrHfrGOCPmKmwTO7M0avXyQKc)
+- Large Language Models (LLMs) 😇
