@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using BlogAPIDotnet.Data;
+using BlogAPIDotnet.Interfaces;
+using BlogAPIDotnet.Repository;
 
 namespace BlogAPIDotnet.Services.Configuration
 {
@@ -17,6 +19,7 @@ namespace BlogAPIDotnet.Services.Configuration
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
+            services.AddScoped<IPostRepository, PostRepository>();
         }
     }
 }

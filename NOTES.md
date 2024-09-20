@@ -9,6 +9,8 @@
 - [Entity Framework Core Docs](https://learn.microsoft.com/en-us/ef/core/)
 - [Choose between controller-based APIs and minimal APIs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/apis?view=aspnetcore-8.0)
 - [.NET CLI overview](https://learn.microsoft.com/en-us/dotnet/core/tools/)
+- [Design the infrastructure persistence layer](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)
+- [Implementing the Repository and Unit of Work Patterns in an ASP.NET MVC Application (9 of 10)](https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application)
 
 ### GitHub Repositories
 
@@ -24,7 +26,7 @@
 
 - [How to Build a WEB API ASP.NET Core 6 (Part 1) / Dev.to Post](https://dev.to/learnwithandres/how-to-build-a-web-api-aspnet-core-6-2doc)
 
-### Other Links
+### Other
 
 - Large Language Models (LLMs) 😇
 
@@ -178,3 +180,19 @@ In software development, the term **application context** can refer to different
 - **Dependency Injection**: Helps with injecting dependencies into application components through a managed way.
 - **Lifecycle Management**: Manages the lifecycle of components, ensuring proper initialization and cleanup.
 - **Configuration**: Provides a centralized configuration location, making it easier to manage and modify settings.
+
+## Repository Pattern
+
+![Repository Pattern Diagram](https://asp.net/media/2578149/Windows-Live-Writer_8c4963ba1fa3_CE3B_Repository_pattern_diagram_1df790d3-bdf2-4c11-9098-946ddd9cd884.png)
+
+The repository pattern is a popular architectural pattern used in software development to abstract data access logic and improve the maintainability and testability of applications. In the context of .NET Web API, the repository pattern offers several key advantages:
+
+### Key Advantages
+
+- **Separation of Concerns**: By separating data access logic from the business logic, the repository pattern promotes a clean separation of concerns. This makes the codebase more organized, easier to understand, and easier to maintain.
+- **Improved Testability**: With the repository pattern, you can easily create mock or stub repositories for testing purposes. This allows you to isolate the business logic from the underlying data store and write more focused unit tests.
+- **Data Access Abstraction**: Repositories provide an abstraction layer over the data access technology (e.g., Entity Framework, ADO.NET). This makes it easier to switch to a different data access technology in the future without significantly impacting the rest of the application.
+- **Enhanced Maintainability**: By centralizing data access logic in repositories, you can make changes to the data access layer without affecting the business logic. This simplifies maintenance and reduces the risk of introducing bugs.
+- **Improved Code Reusability**: Repositories can be reused across different parts of the application, reducing the amount of duplicate code.
+
+In summary, the repository pattern is a valuable tool for building well-structured and maintainable .NET Web API applications. By promoting separation of concerns, improving testability, and providing data access abstraction, the repository pattern helps to create more robust and scalable software.

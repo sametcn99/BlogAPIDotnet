@@ -1,5 +1,6 @@
 using BlogAPIDotnet.Data;
 using BlogAPIDotnet.Dtos.Post;
+using BlogAPIDotnet.Interfaces;
 using BlogAPIDotnet.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,26 +17,29 @@ namespace BlogAPIDotnet.Controllers
         /// </summary>
         private readonly BlogContext _context;
 
+        private readonly IPostRepository _postRepository;
+
         /// <summary>
         /// Constructor for the PostController class.
         /// </summary>
         /// <param name="context"></param>
-        public PostController(BlogContext context)
+        public PostController(BlogContext context, IPostRepository postRepository)
         {
+            _postRepository = postRepository;
             _context = context;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var stocks = await _context.Posts.ToListAsync();
+            var stocks = await _postRepository.GetAllAsync();
             return Ok(stocks);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await _postRepository.GetByIdAsync(id);
             if (post == null)
             {
                 return NotFound();
@@ -52,10 +56,9 @@ namespace BlogAPIDotnet.Controllers
             }
 
             var post = postCreateDto.ToPostFromCreateDto();
-            _context.Posts.Add(post);
-            await _context.SaveChangesAsync();
+            var createdPost = await _postRepository.CreateAsync(post);
 
-            return CreatedAtAction(nameof(Get), new { id = post.Id }, post);
+            return CreatedAtAction(nameof(Get), new { id = createdPost.Id }, createdPost);
         }
 
         [HttpPut("{id}")]
@@ -66,14 +69,12 @@ namespace BlogAPIDotnet.Controllers
                 return BadRequest(ModelState);
             }
 
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await _postRepository.UpdateAsync(id, postUpdateDto);
             if (post == null)
             {
                 return NotFound();
             }
 
-            post.Title = postUpdateDto.Title;
-            post.Content = postUpdateDto.Content;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -82,14 +83,11 @@ namespace BlogAPIDotnet.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
-            if (post == null)
+            var post = await _postRepository.DeleteAsync(id);
+            if (!post)
             {
                 return NotFound();
             }
-
-            _context.Posts.Remove(post);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
