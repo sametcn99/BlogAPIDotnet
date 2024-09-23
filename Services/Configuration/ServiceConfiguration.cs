@@ -21,6 +21,7 @@ namespace BlogAPIDotnet.Services.Configuration
             });
             services.AddControllers();
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
         }
     }
 }

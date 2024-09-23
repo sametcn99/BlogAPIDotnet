@@ -55,7 +55,7 @@ namespace BlogAPIDotnet.Controllers
             }
 
             var post = postCreateDto.ToPostFromCreateDto();
-            var createdPost = await _postRepository.CreateAsync(post);
+            var createdPost = await _postRepository.CreateAsync(postCreateDto);
 
             return CreatedAtAction(nameof(Get), new { id = createdPost.Id }, createdPost);
         }

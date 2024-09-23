@@ -1,3 +1,5 @@
+using BlogAPIDotnet.Dtos.Comment;
+using BlogAPIDotnet.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAPIDotnet.Controllers
@@ -7,34 +9,64 @@ namespace BlogAPIDotnet.Controllers
     public class CommentController : ControllerBase
     {
 
-        [HttpGet]
-        public IActionResult Get()
+        private readonly ICommentRepository _commentRepository;
+
+        public CommentController(ICommentRepository commentRepository)
         {
-            return Ok("Get all comments");
+            _commentRepository = commentRepository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var comments = await _commentRepository.GetAllAsync();
+            return Ok(comments);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok($"Get comment with id {id}");
+            var comment = await _commentRepository.GetByIdAsync(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(comment);
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post([FromBody] CreateCommentRequestDto commentCreateDto)
         {
-            return Ok("Create a new comment");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var createdComment = await _commentRepository.CreateAsync(commentCreateDto);
+            return CreatedAtAction(nameof(Get), new { id = createdComment.Id }, createdComment);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateCommentRequestDto commentDto)
         {
-            return Ok($"Update comment with id {id}");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedComment = await _commentRepository.UpdateAsync(id, commentDto);
+            return Ok(updatedComment);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok($"Delete comment with id {id}");
+            var result = await _commentRepository.DeleteAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

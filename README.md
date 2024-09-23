@@ -17,8 +17,8 @@ This API provides the following features:
 ## Roadmap
 
 - [x] Initialize Project
-- [ ] CRUD operations for blog posts
-- [ ] Comment management (add and list)
+- [x] CRUD operations for blog posts
+- [x] Comment management (add and list)
 - [ ] User authentication and authorization
 - [ ] Category and tag management
 - [ ] Search and filtering capabilities

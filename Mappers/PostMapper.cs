@@ -21,7 +21,7 @@ namespace BlogAPIDotnet.Mappers
                 Title = postModel.Title,
                 Content = postModel.Content,
                 CreatedAt = postModel.CreatedAt,
-                Comments = postModel.Comments
+                Comments = postModel.Comments.Select(c => c.ToCommentDto()).ToList(),
             };
         }
 

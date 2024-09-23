@@ -13,23 +13,17 @@ public class PostRepository(BlogContext context) : IPostRepository
 
     public async Task<List<Post>> GetAllAsync()
     {
-        return await _context.Posts.ToListAsync();
+        return await _context.Posts.Include(p => p.Comments).
+        ToListAsync();
     }
 
     public async Task<Post> GetByIdAsync(int id)
     {
-        var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+        var post = await _context.Posts.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id == id);
         if (post == null)
         {
             throw new KeyNotFoundException($"Post with Id {id} not found.");
         }
-        return post;
-    }
-
-    public async Task<Post> CreateAsync(Post post)
-    {
-        _context.Posts.Add(post);
-        await _context.SaveChangesAsync();
         return post;
     }
 
@@ -66,7 +60,8 @@ public class PostRepository(BlogContext context) : IPostRepository
         {
             Title = post.Title,
             Content = post.Content,
-            // Map other properties as needed
+            CreatedAt = DateTime.Now
+
         };
 
         _context.Posts.Add(newPost);

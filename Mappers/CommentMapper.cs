@@ -14,7 +14,9 @@ public static class CommentMapper
         {
             Id = commentModel.Id,
             Content = commentModel.Content,
-            CreatedAt = commentModel.CreatedAt
+            CreatedAt = commentModel.CreatedAt,
+            PostId = commentModel.PostId,
+            CreatedBy = commentModel.CreatedBy
         };
     }
 }

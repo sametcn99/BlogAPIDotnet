@@ -1,3 +1,5 @@
+using BlogAPIDotnet.Dtos.Comment;
+
 namespace BlogAPIDotnet.Dtos.Post
 {
     /// <summary>
@@ -9,6 +11,6 @@ namespace BlogAPIDotnet.Dtos.Post
         public string? Title { get; set; }
         public string? Content { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<Models.Comment>? Comments { get; set; }
+        public List<CommentDto>? Comments { get; set; }
     }
 }
