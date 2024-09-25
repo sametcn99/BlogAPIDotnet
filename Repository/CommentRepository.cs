@@ -4,6 +4,7 @@ using BlogAPIDotnet.Data;
 using BlogAPIDotnet.Dtos.Comment;
 using BlogAPIDotnet.Interfaces;
 using BlogAPIDotnet.Models;
+using BlogAPIDotnet.Helpers;
 
 namespace BlogAPIDotnet.Repository;
 
@@ -16,9 +17,14 @@ public class CommentRepository : ICommentRepository
         _context = context;
     }
 
-    public async Task<List<Comment>> GetAllAsync()
+    public async Task<List<Comment>> GetAllAsync(QueryObject queryObject)
     {
-        return await _context.Comments.ToListAsync();
+        var comments = _context.Comments.AsQueryable();
+        if (!string.IsNullOrWhiteSpace(queryObject.CreatedBy))
+        {
+            comments = comments.Where(c => c.CreatedBy == queryObject.CreatedBy);
+        }
+        return await comments.ToListAsync();
     }
 
     public async Task<Comment> GetByIdAsync(int id)

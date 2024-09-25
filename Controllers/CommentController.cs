@@ -1,4 +1,5 @@
 using BlogAPIDotnet.Dtos.Comment;
+using BlogAPIDotnet.Helpers;
 using BlogAPIDotnet.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,13 @@ namespace BlogAPIDotnet.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] QueryObject queryObject)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var comments = await _commentRepository.GetAllAsync();
+            var comments = await _commentRepository.GetAllAsync(queryObject);
             return Ok(comments);
         }
 
