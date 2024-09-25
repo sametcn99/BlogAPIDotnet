@@ -14,5 +14,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers(); // maps the controllers.
 app.UseHttpsRedirection(); // redirects HTTP requests to HTTPS.
+app.UseAuthorization(); // adds authorization to the application.
+app.UseAuthentication(); // adds authentication to the application.
 
 app.Run(); // runs the application.

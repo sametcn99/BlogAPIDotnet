@@ -21,10 +21,10 @@ This API provides the following features:
 - [x] Comment management (add and list)
 - [ ] User authentication and authorization
 - [ ] Category and tag management
-- [ ] Search and filtering capabilities
-- [ ] Enhanced error handling and validation
+- [x] Search and filtering capabilities
+- [x] Enhanced error handling and validation
 - [ ] Like system for comments
-- [ ] Pagination and sorting support
+- [x] Pagination and sorting support
 - [ ] Publish date and draft management (for blog posts)
 - [ ] Expanded JSON and XML support for interoperability
 - [ ] Swagger customization for API documentation
