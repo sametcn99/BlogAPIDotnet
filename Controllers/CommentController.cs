@@ -19,13 +19,21 @@ namespace BlogAPIDotnet.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var comments = await _commentRepository.GetAllAsync();
             return Ok(comments);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var comment = await _commentRepository.GetByIdAsync(id);
             if (comment == null)
             {
@@ -46,7 +54,7 @@ namespace BlogAPIDotnet.Controllers
             return CreatedAtAction(nameof(Get), new { id = createdComment.Id }, createdComment);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateCommentRequestDto commentDto)
         {
             if (!ModelState.IsValid)
@@ -58,9 +66,13 @@ namespace BlogAPIDotnet.Controllers
             return Ok(updatedComment);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var result = await _commentRepository.DeleteAsync(id);
             if (!result)
             {

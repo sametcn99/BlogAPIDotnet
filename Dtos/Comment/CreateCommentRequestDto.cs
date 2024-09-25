@@ -9,6 +9,7 @@ public class CreateCommentRequestDto
     public string? Content { get; set; }
 
     [Required]
+    [MinLength(3, ErrorMessage = "CreatedBy must be 3 character."), MaxLength(50, ErrorMessage = "CreatedBy must be less than 50 characters.")]
     public string? CreatedBy { get; set; }
 
     [Required]

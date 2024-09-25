@@ -31,13 +31,21 @@ namespace BlogAPIDotnet.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var stocks = await _postRepository.GetAllAsync();
             return Ok(stocks);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var post = await _postRepository.GetByIdAsync(id);
             if (post == null)
             {
@@ -53,14 +61,13 @@ namespace BlogAPIDotnet.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var post = postCreateDto.ToPostFromCreateDto();
             var createdPost = await _postRepository.CreateAsync(postCreateDto);
 
             return CreatedAtAction(nameof(Get), new { id = createdPost.Id }, createdPost);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatePostRequestDto postUpdateDto)
         {
             if (!ModelState.IsValid)
@@ -79,9 +86,13 @@ namespace BlogAPIDotnet.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var post = await _postRepository.DeleteAsync(id);
             if (!post)
             {
