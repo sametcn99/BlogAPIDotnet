@@ -4,6 +4,7 @@ using BlogAPIDotnet.Data;
 using BlogAPIDotnet.Dtos.Post;
 using BlogAPIDotnet.Interfaces;
 using BlogAPIDotnet.Models;
+using BlogAPIDotnet.Helpers;
 
 namespace BlogAPIDotnet.Repository;
 
@@ -11,10 +12,16 @@ public class PostRepository(BlogContext context) : IPostRepository
 {
     private readonly BlogContext _context = context;
 
-    public async Task<List<Post>> GetAllAsync()
+    public async Task<List<Post>> GetAllAsync(QueryObject queryObject)
     {
-        return await _context.Posts.Include(p => p.Comments).
-        ToListAsync();
+        var posts = _context.Posts.AsQueryable();
+        if (queryObject.IsDesc != null)
+        {
+            posts = posts.OrderByDescending(p => p.CreatedAt);
+        }
+        var skipNumber = (queryObject.Page - 1) * queryObject.PageSize;
+        posts = posts.Skip(skipNumber).Take(queryObject.PageSize);
+        return await posts.Skip(skipNumber).Take(queryObject.PageSize).ToListAsync();
     }
 
     public async Task<Post> GetByIdAsync(int id)

@@ -4,6 +4,7 @@ using BlogAPIDotnet.Data;
 using BlogAPIDotnet.Dtos.Post;
 using BlogAPIDotnet.Interfaces;
 using BlogAPIDotnet.Mappers;
+using BlogAPIDotnet.Helpers;
 
 namespace BlogAPIDotnet.Controllers
 {
@@ -29,14 +30,14 @@ namespace BlogAPIDotnet.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] QueryObject queryObject)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var stocks = await _postRepository.GetAllAsync();
-            return Ok(stocks);
+            var posts = await _postRepository.GetAllAsync(queryObject);
+            return Ok(posts);
         }
 
         [HttpGet("{id:int}")]
