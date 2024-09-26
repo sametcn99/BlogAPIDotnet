@@ -62,7 +62,7 @@ namespace BlogAPIDotnet.Services.Configuration
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
             });
-
+            services.AddScoped<ITokenService, TokenService>();
         }
     }
 }
