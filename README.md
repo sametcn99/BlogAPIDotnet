@@ -19,12 +19,7 @@ This API provides the following features:
 - [x] Initialize Project
 - [x] CRUD operations for blog posts
 - [x] Comment management (add and list)
-- [ ] User authentication and authorization
-- [ ] Category and tag management
+- [x] User authentication and authorization
 - [x] Search and filtering capabilities
 - [x] Enhanced error handling and validation
-- [ ] Like system for comments
 - [x] Pagination and sorting support
-- [ ] Publish date and draft management (for blog posts)
-- [ ] Expanded JSON and XML support for interoperability
-- [ ] Swagger customization for API documentation
