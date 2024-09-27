@@ -1,4 +1,4 @@
-# Blog API
+# Blog API [![.NET](https://github.com/sametcn99/BlogAPIDotnet/actions/workflows/dotnet.yml/badge.svg)](https://github.com/sametcn99/BlogAPIDotnet/actions/workflows/dotnet.yml)
 
 **Blog API** is a RESTful API that allows users to create, update, delete, and manage blog posts and comments. The API provides the necessary functionality for CRUD operations (Create, Read, Update, Delete).
 
